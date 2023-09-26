@@ -1,0 +1,28 @@
+<div id="SparkUpdateArea">
+    <div class="row mt-4">
+        <div class="col-md-2">
+            <a id="sortID" href="#">
+                <!--ID-->
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a id="sortNome" href="#">
+                <!--NOME-->
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a id="sortPreco" href="#">
+                <!--PRECO-->
+            </a>
+        </div>
+        <div class="col-md-1">
+            <p><b>Detalhar</b></p>
+        </div>
+        <div class="col-md-1">
+            <p><b>Atualizar</b></p>
+        </div>
+        <div class="col-md-1">
+            <p><b>Excluir</b></p>
+        </div>
+    </div>
+</div>
