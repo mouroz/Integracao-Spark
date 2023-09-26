@@ -72,7 +72,6 @@ public class ProdutoService {
 	public Object delete(Request request, Response response) {	
 		System.out.println("delete attempt");
 		
-		///ACTUALLY IT WONT BE A FORM REQUEST. CHECK HOW IT GOES AND EXTRACT ID FROM THERE
 		String requestBody = request.body(); //get form body
 		String idStr = extractFormParam(requestBody, "id"); 
 		
@@ -102,7 +101,7 @@ public class ProdutoService {
 		JSONObject jsonResponse = new JSONObject();
 		
 		
-		if (customResponse.getErrorNum()==0) {
+		if (produto != null) {
 			jsonResponse.put("status", 1);
 			produtos.add(produto); //maybe a method to print all produtos for testing could be worth it
 			produtoDAO.insert(produto);
@@ -133,7 +132,7 @@ public class ProdutoService {
 		String requestBody = request.body(); //get form body
         String idStr = extractFormParam(requestBody, "id"); 
         
-        int id = Integer.MIN_VALUE;
+        int id = 0;
         try {
         	id = isKey(idStr); //check if id exists
         	if (produtoDAO.checkByKey(id)) 
@@ -149,7 +148,7 @@ public class ProdutoService {
         String precoStr = extractFormParam(requestBody, "preco");
         String quantidadeStr = extractFormParam(requestBody, "quantidade");
         
-        float preco = -1;
+        float preco = 0;
 	    //conversions
         try {
         	preco = Float.parseFloat(precoStr);
@@ -157,7 +156,7 @@ public class ProdutoService {
         	customResponse.addError("preco invalido");
         }
         
-        int quantidade = -1;
+        int quantidade = 0;
         try {
         	quantidade = Integer.parseInt(quantidadeStr);
         } catch(NumberFormatException e) {
@@ -171,9 +170,12 @@ public class ProdutoService {
 		// ->
 		LocalDateTime dataFabricacao = LocalDateTime.of(2004, 7, 2, 12, 0, 0);
 		LocalDate dataValidade = LocalDate.of(2004, 7, 2);
-
-		Produto produto = new Produto(id,nome,preco,quantidade,dataFabricacao,dataValidade);
-		System.out.println("insert produto :" + produto.toString());
+		
+		Produto produto;
+		if(customResponse.getErrorNum() > 0) produto = null;
+		else produto = new Produto(id,nome,preco,quantidade,dataFabricacao,dataValidade);
+		
+		//System.out.println("insert produto :" + produto.toString());
 		return produto;
 	}
 	///auxiliary functions
